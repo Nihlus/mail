@@ -240,7 +240,11 @@ export default {
 			try {
 				this.generatingData = true
 
-				const { summary, description } = await generateEventData(this.envelope.databaseId)
+				const result = await generateEventData(this.envelope.databaseId)
+				if (!result) {
+					return
+				}
+				const { summary, description } = result
 				this.eventTitle = summary
 				this.description = description
 			} finally {
